@@ -189,7 +189,8 @@ classdef PDE < SSP_Tools.TestProblems.TestProblem
 			obj.u = u_next;
 			obj.t = obj.t + dt;
 			
-		end
+        end
+        
 		
 		function approximate(obj, t, varargin)
 			% Approximate the solution at t= by stepping in

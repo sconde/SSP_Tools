@@ -18,7 +18,6 @@ classdef Advection < SSP_Tools.TestProblems.PDE
 			params.name = 'Advection Equation u_t - a*u_x = 0';
 
 			obj = obj@SSP_Tools.TestProblems.PDE(params);
-			
 			obj.a = p.Results.a;
 			
 			if isempty(obj.a)

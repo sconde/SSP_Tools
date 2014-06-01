@@ -64,10 +64,12 @@ classdef FiniteDifference < SSP_Tools.Discretizers.Discretizer
 			
 			u_x = upwind_flux + downwind_flux;
 			u_x = u_x(obj.gp+1:end-obj.gp)';
+            
         end
-        
-       
-			
+		
+        function Lop = get.D(obj)
+            Lop = obj.D;
+        end
 		
 		function parameters = get_parameters(obj)
 			parameters = [];

@@ -25,9 +25,11 @@ classdef FiniteDifference < SSP_Tools.Discretizers.Discretizer
 			
 				dx = min(diff(x));
 				grid_size = length(x) + 2*obj.gp;
-				
-				obj.D = (-eye(grid_size) + diag(ones(1, grid_size-1), 1))/dx;
-			end
+				e = ones(grid_size,1);
+				%obj.D = (-eye(grid_size) + diag(ones(1, grid_size-1), 1))/dx;
+                obj.D = (spdiags([-e e],0:1,grid_size,grid_size))/dx;
+                
+            end
 		end
 		
 		function [u_plus, u_minus] = split_flux(obj, x, u, t)
@@ -47,6 +49,7 @@ classdef FiniteDifference < SSP_Tools.Discretizers.Discretizer
 			% Obtain an approximation of the derivative u_x
 			
 			% Append the ghost points
+            
 			u_gp = [ u(end-obj.gp:end-1), u, u(2:obj.gp+1) ];
 			
 			[u_plus, u_minus] = obj.split_flux(x, u_gp, t);
@@ -61,7 +64,9 @@ classdef FiniteDifference < SSP_Tools.Discretizers.Discretizer
 			
 			u_x = upwind_flux + downwind_flux;
 			u_x = u_x(obj.gp+1:end-obj.gp)';
-		end
+        end
+        
+       
 			
 		
 		function parameters = get_parameters(obj)
